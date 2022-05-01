@@ -1,6 +1,42 @@
 const router = require('express').Router();
 const Playlist = require('../../models/playlist.model');
 
+router.get('/:playlist_username', async(req,res) => {
+    try {
+        const playlists = await Playlist.find({playlist_username:req.params.playlist_username});
+        return res.json({msage : 'Playlist Encontradas ',data : playlists});
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error : 'Ha ocurrido un error'});
+    }
+});
+
+router.get('/:username/:playlist_name', async(req,res) => {
+    try {
+        const playlists = await Playlist.find({
+            username: req.params.username,
+            playlist_name: req.params.playlist_name
+        });
+        return res.json({msage : `Playlist Encontrada`,data : playlists} );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error : 'Ha ocurrido un error'});
+    }
+});
+
+router.get('/:username/:playlist_name/songs', async(req,res) => {
+    try {
+        const playlists = await Playlist.findOne({
+            username: req.params.username,
+            playlist_name: req.params.playlist_name
+        });
+        return res.json({msage : `Canciones de Playlist Encontradas`,data : playlists.playlist_songs} );
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({error : 'Ha ocurrido un error'});
+    }
+});
+
 router.get('/', async(req,res) => {
     try {
         const playlists = await Playlist.find();
@@ -61,6 +97,7 @@ router.delete('/:playlist_id', async (req,res) =>{
         const playlist = await Playlist.findByIdAndDelete(req.params.playlist_id);
         return res.json({msage : 'Playlist Eliminada',data : playlist}); 
     } catch (error) {
+        console.log(error);
         return res.status(500).json({error : 'Ha ocurrido un error'});
     }
 })
