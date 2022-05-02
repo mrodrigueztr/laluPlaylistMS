@@ -37,6 +37,7 @@ router.get('/:username/:playlist_name/songs', async(req,res) => {
     }
 });
 
+
 router.get('/', async(req,res) => {
     try {
         const playlists = await Playlist.find();
@@ -49,22 +50,20 @@ router.get('/', async(req,res) => {
 
 router.get('/:playlist_id', async(req,res) => {
     try {
-        
-        const playlists = await Playlist.findById(req.params.playlist_id);
-        return res.json({msage : 'Playlist Encontrada',data : playlists} );
+        const playlistsById = await Playlist.findOne({_id: req.params.playlist_id});
+        return res.json({msage : 'Playlist Encontradas ',data : playlistsById});
     } catch (error) {
-        console.log(error);
         return res.status(500).json({error : 'Ha ocurrido un error'});
     }
 });
 
+
 router.get('/:playlist_id/songs', async(req,res) => {
     try {
         
-        const playlists = await Playlist.findById(req.params.playlist_id);
+        const playlists = await Playlist.findById(req.p);
         return res.json({msage : 'Canciones encontradas',data : playlists.playlist_songs});
     } catch (error) {
-        console.log(error);
         return res.status(500).json({error : 'Ha ocurrido un error'});
     }
 });
@@ -77,6 +76,8 @@ router.post('/', async (req,res) => {
         return res.status(500).json({error : 'Ha ocurrido un error'});
     }
 });
+
+
 
 router.put('/:playlist_id', async (req,res) => {
     try {
