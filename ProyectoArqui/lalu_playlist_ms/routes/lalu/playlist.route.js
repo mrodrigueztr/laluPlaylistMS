@@ -70,7 +70,7 @@ router.get('/id/:playlist_id/songs', async(req,res) => {
     }
 });
 
-router.post('/', async (req,res) => {
+router.post('/newPlaylist', async (req,res) => {
     try {
         const newPlaylist =  await Playlist.create(req.body);
         return res.json({msage : 'Playlist Creada',data : newPlaylist});
