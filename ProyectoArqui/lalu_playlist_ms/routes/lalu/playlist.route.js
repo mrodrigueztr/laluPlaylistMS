@@ -1,14 +1,16 @@
 const router = require('express').Router();
 const {
-    getAllPlaylists, getAllPlaylistByUsername, getPlaylistByNameUsingUsername,
+    getAllPlaylistsAlbums, getAllPlaylistAlbumsByUsername, getPlaylistByNameUsingUsername,
     getPlaylistSongsByNameUsingUsername, getPlaylistById, getPlaylistSongsById,
     createNewPlaylist, updatePlaylistById, addSongsToThePlaylist,
-    deleteSongsFromThePlaylist, deletePlaylist
+    deleteSongsFromThePlaylist, deletePlaylist,getAllPlaylistByUsername,getAllAlbumsByUsername
 } = require('../../controllers/playlist.controller')
 
 
-router.get('/', getAllPlaylists);
-router.get('/username/:playlist_username', getAllPlaylistByUsername);
+router.get('/', getAllPlaylistsAlbums);
+router.get('/username/:playlist_username', getAllPlaylistAlbumsByUsername);
+router.get('/username/:playlist_username/playlist', getAllPlaylistByUsername);
+router.get('/username/:playlist_username/albums', getAllAlbumsByUsername);
 router.get('/username/:playlist_username/:playlist_name', getPlaylistByNameUsingUsername);
 router.get('/username/:username/:playlist_name/songs', getPlaylistSongsByNameUsingUsername);
 router.get('/id/:playlist_id', getPlaylistById);
